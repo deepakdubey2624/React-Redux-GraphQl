@@ -2,7 +2,7 @@
 import { ApolloServer , gql } from 'apollo-server-express';
 import typeDefs from '../typeDefs' ;
 import resolvers from '../resolvers';
-import Talk from '../../model/model';
+
 import config from '../../config/config';
 
 // const Query = gql`

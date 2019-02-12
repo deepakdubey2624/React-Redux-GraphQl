@@ -9,7 +9,7 @@ password: String
 }, {
 timestamps:true
 })
-
+// pre runs before save method when we call create method
 userSchema.pre('save' , async function(next) {
    try {
     if(this.isModified('password')){

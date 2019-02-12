@@ -1,13 +1,13 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
+
 import mongoose from 'mongoose';
-import apollo from './graphql/index'
+import apolloApp from './graphql/index'
 import config from './config/config';
-require('dotenv').config();
+
 
 const app = express();
-mongoose.connect(process.env.DB_CONN, {useNewUrlParser: true} )
+mongoose.connect(config.dbConn, {useNewUrlParser: true} )
 .then(()=> console.log('DB connected'))
 .catch(error => console.log(error))
 
@@ -28,14 +28,20 @@ function setPort(port = 5000) {
     origin: config.corsDomain, // Be sure to switch to your production domain
     optionsSuccessStatus: 200
    }));
+
+  
    
    // Endpoint to check if the API is running
-   app.get('/', (req, res) => {
+   app.get('/', (req, res, next) => {
     res.send({ status: 'ok' });
+    
    });
-   
+  
+ 
+  
+
    // Append apollo to our API
-   apollo(app);
+   apolloApp(app);
    
    export default {
     getApp: () => app,

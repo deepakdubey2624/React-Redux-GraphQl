@@ -16,12 +16,17 @@ module.exports = {
       {
         test: /\.(jpg|png|gif|jpeg|woff|woff2|eot|ttf|svg)$/,
         use: ['url-loader']
+    },
+    {
+      test: /\.mjs$/, // to support grapql .mjs and gql tags extenstion
+      include: /node_modules/,
+      type: 'javascript/auto'
     }
      
     ]
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx', 'css']
+    extensions: ['*', '.mjs', '.js', '.jsx', '.json', '.gql', '.graphql']
   },
   output: {
     path: __dirname + '/dist',
@@ -30,12 +35,14 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({ 
+      title: 'My App',
       template: './src/index.html', 
-      filename: './index.html' 
+      filename: 'index.html' 
     })
   ],
   devServer: {
     contentBase: './dist',
+    historyApiFallback: true, // to support browser history api resolves page refresh issue
     port:9000
   }
 };
